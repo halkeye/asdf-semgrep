@@ -17,17 +17,17 @@ install_semgrep_cli() {
   local bin_path="${bin_install_path}/semgrep"
 
   case $(uname | tr '[:upper:]' '[:lower:]') in
-    linux*)
-      local filename=semgrep-v${version}-ubuntu-16.04.tgz
-      local platform=linux_amd64
-      ;;
-    darwin*)
-      local filename=semgrep-v${version}-osx.zip
-      local platform=macOS_amd64
-      ;;
-    *)
-      local platform=notset
-      ;;
+  linux*)
+    local filename=semgrep-v${version}-ubuntu-16.04.tgz
+    local platform=linux_amd64
+    ;;
+  darwin*)
+    local filename=semgrep-v${version}-osx.zip
+    local platform=macOS_amd64
+    ;;
+  *)
+    local platform=notset
+    ;;
   esac
 
   local old_filename="semgrep_${version}_${platform}"
@@ -42,16 +42,14 @@ install_semgrep_cli() {
   curl -sL $download_url -o $tmp_bin_path
 
   echo "Extracting ${tmp_bin_path}"
-  if [[ $filename == *tgz ]]
-  then
+  if [[ $filename == *tgz ]]; then
     tar -zxf $tmp_bin_path --directory $tmp_path
   else
     unzip -o $tmp_bin_path -d $tmp_path
   fi
 
   echo "Moving bin to ${bin_path}"
-  if [[ $filename == *tgz ]]
-  then
+  if [[ $filename == *tgz ]]; then
     cp $tmp_path/semgrep-files/semgrep-core $bin_path
   else
     cp $tmp_path/artifacts/semgrep-core $bin_path
@@ -66,7 +64,8 @@ install_semgrep_cli() {
 
 get_download_url() {
   local filename="$1"
-  echo "https://github.com/returntocorp/semgrep/releases/download/v${version}/${filename}"
+  echo "https://github.com/semgrep/semgrep/releases/download/v${version}/${filename}"
 }
 
 install_semgrep_cli $ASDF_INSTALL_TYPE $ASDF_INSTALL_VERSION $ASDF_INSTALL_PATH
+
